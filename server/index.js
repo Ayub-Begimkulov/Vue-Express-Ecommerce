@@ -1,10 +1,28 @@
-const express = require("express");
+require('dotenv').config();
+
+const express = require('express');
+const mongoose = require('mongoose');
+const helmet = require('helmet');
+
 const app = express();
 
-app.get("/", (req, res) => {
-  res.json("hello world");
-});
+app.use(helmet());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-app.listen(3000, () => {
-  console.log("App is listening on port 3000");
+mongoose.connect(
+  process.env.CONNECTION_STRING,
+  { useNewUrlParser: true },
+  err => {
+    if (err) {
+      console.log('Database Error----------------', err);
+    }
+    console.log('Connected to database');
+  }
+);
+
+app.use('/api/products', require('./routes/api/products'));
+
+app.listen(process.env.PORT, () => {
+  console.log(`App is listening on port ${process.env.PORT}`);
 });
