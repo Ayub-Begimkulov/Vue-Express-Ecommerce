@@ -12,6 +12,16 @@ router.get('/', (req, res) => {
     });
 });
 
+router.get('/:id', (req, res) => {
+  ProductModel.findById(req.params.id)
+    .then(doc => {
+      res.json(doc);
+    })
+    .catch(err => {
+      res.json(err);
+    });
+});
+
 router.post('/', (req, res) => {
   const product = new ProductModel({
     title: req.body.title,
