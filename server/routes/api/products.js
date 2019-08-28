@@ -17,6 +17,7 @@ router.post('/', (req, res) => {
     title: req.body.title,
     price: req.body.price,
     brand: req.body.brand,
+    category: req.body.category,
     description: req.body.description
   });
 
