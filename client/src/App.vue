@@ -1,29 +1,30 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+    <header class="bg-white shadow flex items-center justify-between p-6">
+      <h1 class="text-xl font-bold">
+        <router-link to="/">Vue Ecommerce</router-link>
+      </h1>
+      <div class="flex items-center">
+        <router-link to="/cart" class="hover:shadow">
+          <img class="w-6 h-6 my-2 mx-4" src="./assets/images/cart.svg" alt="cart" />
+        </router-link>
+        <router-link to="/login" class="hover:shadow px-4 py-2">Login</router-link>
+        <router-link to="/signup" class="hover:shadow px-4 py-2">Signup</router-link>
+      </div>
+    </header>
+
+    <div class="container mx-auto py-8 px-1">
+      <router-view />
     </div>
-    <router-view/>
+
+    <footer class="bg-white text-center p-10">Made by Ayub Begimkulov</footer>
   </div>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-}
-</style>
+<script>
+import './assets/css/main.css';
+
+export default {
+  name: 'App'
+};
+</script>
