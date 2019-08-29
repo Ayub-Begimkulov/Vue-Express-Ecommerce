@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const ProductModel = require('../../models/ProductModel');
+const Product = require('../../models/Product');
 
 router.get('/', (req, res) => {
-  ProductModel.find()
+  Product.find()
     .then(doc => {
       res.json(doc);
     })
@@ -13,7 +13,7 @@ router.get('/', (req, res) => {
 });
 
 router.get('/:id', (req, res) => {
-  ProductModel.findById(req.params.id)
+  Product.findById(req.params.id)
     .then(doc => {
       res.json(doc);
     })
@@ -23,16 +23,13 @@ router.get('/:id', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-  const product = new ProductModel({
+  Product.create({
     title: req.body.title,
     price: req.body.price,
     brand: req.body.brand,
     category: req.body.category,
     description: req.body.description
-  });
-
-  product
-    .save()
+  })
     .then(doc => {
       res.json(doc);
     })
@@ -42,7 +39,7 @@ router.post('/', (req, res) => {
 });
 
 router.delete('/:id', (req, res) => {
-  ProductModel.findByIdAndRemove(req.params.id)
+  Product.findByIdAndRemove(req.params.id)
     .then(doc => {
       res.json(doc);
     })
