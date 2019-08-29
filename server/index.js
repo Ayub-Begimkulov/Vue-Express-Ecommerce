@@ -1,9 +1,9 @@
-require('dotenv').config();
-
 const express = require('express');
 const mongoose = require('mongoose');
 const helmet = require('helmet');
 const cors = require('cors');
+
+require('dotenv').config();
 
 const app = express();
 
@@ -14,7 +14,11 @@ app.use(express.urlencoded({ extended: true }));
 
 mongoose.connect(
   process.env.CONNECTION_STRING,
-  { useNewUrlParser: true },
+  {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useFindAndModify: false
+  },
   err => {
     if (err) {
       console.log('Database Error----------------', err);
@@ -24,6 +28,7 @@ mongoose.connect(
 );
 
 app.use('/api/products', require('./routes/api/products'));
+app.use('/api/auth', require('./routes/api/auth'));
 
 app.listen(process.env.PORT, () => {
   console.log(`App is listening on port ${process.env.PORT}`);
