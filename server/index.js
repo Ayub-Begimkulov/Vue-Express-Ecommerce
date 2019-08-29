@@ -28,6 +28,7 @@ mongoose.connect(
 );
 
 app.use('/api/products', require('./routes/api/products'));
+app.use('/api/cart', require('./routes/api/cart'));
 app.use('/api/auth', require('./routes/api/auth'));
 
 app.listen(process.env.PORT, () => {
