@@ -13,11 +13,13 @@
       </div>
     </header>
 
-    <div class="container mx-auto py-8 px-1">
+    <div class="container mx-auto pt-8 pb-32 px-1">
       <router-view />
     </div>
 
-    <footer class="bg-white text-center p-10">Made by Ayub Begimkulov</footer>
+    <footer
+      class="absolute inset-x-0 bottom-0 flex justify-center items-center bg-white h-24"
+    >Made by Ayub Begimkulov</footer>
   </div>
 </template>
 

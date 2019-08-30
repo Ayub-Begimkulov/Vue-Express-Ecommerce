@@ -39,11 +39,12 @@
               alt="product"
             />
           </router-link>
+
           <h3 class="font-bold hover:underline mb-3">
             <router-link :to="`/product/${product._id}`">{{product.title}}</router-link>
           </h3>
-          <p>{{product.description}}</p>
-          <div class="flex justify-between items-center my-3">
+
+          <div class="flex justify-between items-center">
             <div class="font-bold">${{product.price}}</div>
             <button class="bg-indigo-700 text-white font-bold rounded px-4 py-1">Add to cart</button>
           </div>
