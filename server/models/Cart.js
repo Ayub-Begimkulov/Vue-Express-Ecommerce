@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const Product = require('./Product');
 
 const cartSchema = new mongoose.Schema({
   userId: {
@@ -12,6 +11,10 @@ const cartSchema = new mongoose.Schema({
     required: true
   },
   title: {
+    type: String,
+    required: true
+  },
+  img: {
     type: String,
     required: true
   },
