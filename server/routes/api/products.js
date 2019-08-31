@@ -25,6 +25,7 @@ router.get('/:id', (req, res) => {
 router.post('/', (req, res) => {
   Product.create({
     title: req.body.title,
+    img: req.body.img,
     price: req.body.price,
     brand: req.body.brand,
     category: req.body.category,
