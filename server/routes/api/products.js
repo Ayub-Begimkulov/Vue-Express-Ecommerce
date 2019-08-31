@@ -40,7 +40,7 @@ router.post('/', (req, res) => {
 });
 
 router.delete('/:id', (req, res) => {
-  Product.findByIdAndRemove(req.params.id)
+  Product.findByIdAndDelete(req.params.id)
     .then(doc => {
       res.json(doc);
     })
