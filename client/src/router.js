@@ -14,31 +14,32 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'home',
+      name: 'Home',
       component: Home
     },
 
     {
       path: '/cart',
-      name: 'cart',
+      name: 'Cart',
       component: Cart
     },
 
     {
       path: '/product/:id',
-      name: 'product',
-      component: Product
+      name: 'Product',
+      component: Product,
+      props: true
     },
 
     {
       path: '/login',
-      name: 'login',
+      name: 'Login',
       component: Login
     },
 
     {
       path: '/signup',
-      name: 'signup',
+      name: 'Signup',
       component: Signup
     }
   ]
