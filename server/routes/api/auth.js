@@ -15,10 +15,16 @@ router.post('/signup', async (req, res) => {
     return res.status(400).json({ message: 'Please, fill in all the fields' });
   }
 
+  if (req.body.password.length < 6) {
+    return res
+      .status(400)
+      .json({ message: 'Password must be at least 6 characters' });
+  }
+
   const salt = await bcrypt.genSalt();
   const hashedPassword = await bcrypt.hash(req.body.password, salt);
 
-  const [createUserErr, user] = await to(
+  const [err, user] = await to(
     User.create({
       firstName: req.body.firstName,
       lastName: req.body.lastName,
@@ -27,7 +33,7 @@ router.post('/signup', async (req, res) => {
     })
   );
 
-  if (createUserErr) {
+  if (err) {
     return res.status(401).json({
       message:
         'Can not create user with this credentials, check if the email is valid and not already in use'
