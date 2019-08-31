@@ -5,11 +5,17 @@
         <router-link to="/">Vue Ecommerce</router-link>
       </h1>
       <div class="flex items-center">
-        <router-link to="/cart" class="hover:shadow">
-          <img class="w-6 h-6 my-2 mx-4" src="./assets/images/cart.svg" alt="cart" />
+        <router-link to="/cart" class="relative hover:shadow mr-1">
+          <img class="w-6 h-6 my-1 mx-2" src="./assets/images/cart.svg" alt="cart" />
         </router-link>
-        <router-link to="/login" class="hover:shadow px-4 py-2">Login</router-link>
-        <router-link to="/signup" class="hover:shadow px-4 py-2">Signup</router-link>
+        <router-link
+          to="/login"
+          class="rounded hover:text-white hover:bg-blue-500 mr-1 px-2 py-1"
+        >Login</router-link>
+        <router-link
+          to="/signup"
+          class="rounded hover:text-white hover:bg-blue-500 px-2 py-1"
+        >Signup</router-link>
       </div>
     </header>
 
