@@ -27,15 +27,15 @@
       <div class="flex lg:flex-col items-start">
         <div class="w-1/2 lg:w-full lg:mb-4">
           <h3 class="font-bold mb-3">Amount:</h3>
-          <select class="focus:outline-none p-1">
-            <option v-for="i in 10">{{i}}</option>
-          </select>
+
+          <NumberSelect @change="changeAmount" />
         </div>
 
         <button
-          class="self-end lg:self-start bg-blue-500 hover:bg-blue-700 text-white font-bold rounded px-4 py-1"
+          @click="addToCart"
+          class="self-end lg:self-start bg-blue-500 hover:bg-blue-700 text-sm md:text-base text-white font-bold rounded px-4 py-1"
         >
-          <span v-if="!productIds.includes(product._id)">Add to cart</span>
+          <span v-if="productIds.indexOf(product._id) === -1">Add to cart</span>
           <span v-else>Already in cart</span>
         </button>
       </div>
@@ -46,6 +46,7 @@
 <script>
 import axios from 'axios';
 import { mapGetters } from 'vuex';
+import NumberSelect from '../components/NumberSelect';
 
 export default {
   name: 'Product',
@@ -53,9 +54,14 @@ export default {
     productData: Object
   },
 
+  components: {
+    NumberSelect
+  },
+
   data() {
     return {
-      product: this.productData
+      product: this.productData,
+      amount: 1
     };
   },
 
@@ -68,6 +74,25 @@ export default {
         .then(({ data }) => {
           this.product = data;
         });
+    }
+  },
+
+  methods: {
+    addToCart() {
+      this.$store.dispatch('addToCart', {
+        productId: this.product._id,
+        title: this.product.title,
+        img: this.product.img,
+        price: this.product.price,
+        category: this.product.category,
+        brand: this.product.brand,
+        description: this.product.description,
+        amount: this.amount
+      });
+    },
+
+    changeAmount(amount) {
+      this.amount = amount;
     }
   }
 };
