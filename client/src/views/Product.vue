@@ -39,6 +39,10 @@
           <span v-else>Already in cart</span>
         </button>
       </div>
+
+      <p v-if="err" class="text-red-600 mt-3">
+        <router-link to="/login" class="underline mr-1">Log in</router-link>to add items to cart
+      </p>
     </div>
   </div>
 </template>
@@ -61,11 +65,12 @@ export default {
   data() {
     return {
       product: this.productData,
-      amount: 1
+      amount: 1,
+      err: false
     };
   },
 
-  computed: mapGetters(['productIds']),
+  computed: mapGetters(['productIds', 'token']),
 
   created() {
     if (!this.product) {
@@ -79,16 +84,20 @@ export default {
 
   methods: {
     addToCart() {
-      this.$store.dispatch('addToCart', {
-        productId: this.product._id,
-        title: this.product.title,
-        img: this.product.img,
-        price: this.product.price,
-        category: this.product.category,
-        brand: this.product.brand,
-        description: this.product.description,
-        amount: this.amount
-      });
+      if (this.token) {
+        this.$store.dispatch('addToCart', {
+          productId: this.product._id,
+          title: this.product.title,
+          img: this.product.img,
+          price: this.product.price,
+          category: this.product.category,
+          brand: this.product.brand,
+          description: this.product.description,
+          amount: this.amount
+        });
+      } else {
+        this.err = true;
+      }
     },
 
     changeAmount(amount) {
