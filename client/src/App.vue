@@ -1,21 +1,30 @@
 <template>
   <div id="app">
-    <header class="bg-white shadow flex items-center justify-between p-6">
-      <h1 class="text-xl font-bold">
+    <Modal v-show="showModal" :products="allProducts" @close="showModal = false" />
+
+    <header class="bg-white shadow flex items-center justify-between px-3 py-4 sm:p-6">
+      <h1 class="text-lg sm:text-xl font-bold">
         <router-link to="/">Vue Ecommerce</router-link>
       </h1>
       <div class="flex items-center">
-        <router-link to="/cart" class="relative hover:shadow mr-1">
-          <img class="w-6 h-6 my-1 mx-2" src="./assets/images/cart.svg" alt="cart" />
-        </router-link>
-        <router-link
-          to="/login"
-          class="rounded hover:text-white hover:bg-blue-500 mr-1 px-2 py-1"
-        >Login</router-link>
-        <router-link
-          to="/signup"
-          class="rounded hover:text-white hover:bg-blue-500 px-2 py-1"
-        >Signup</router-link>
+        <button @click="openModal" class="relative hover:shadow sm:mr-1">
+          <img class="w-5 h-5 sm:w-6 sm:h-6 my-1 mx-2" src="./assets/images/cart.svg" alt="cart" />
+        </button>
+        <button
+          v-if="token"
+          @click="logout"
+          class="text-sm sm:text-base rounded hover:text-white hover:bg-blue-500 px-2 py-1"
+        >Logout</button>
+        <div v-else>
+          <router-link
+            to="/login"
+            class="text-sm sm:text-base rounded hover:text-white hover:bg-blue-500 sm:mr-1 px-2 py-1"
+          >Login</router-link>
+          <router-link
+            to="/signup"
+            class="text-sm sm:text-base rounded hover:text-white hover:bg-blue-500 px-2 py-1"
+          >Signup</router-link>
+        </div>
       </div>
     </header>
 
@@ -30,9 +39,48 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+import Modal from './components/Modal';
 import './assets/css/main.css';
 
 export default {
-  name: 'App'
+  name: 'App',
+  components: {
+    Modal
+  },
+
+  data() {
+    return {
+      showModal: false
+    };
+  },
+
+  computed: mapGetters(['allProducts', 'token']),
+
+  created() {
+    if (this.token) {
+      this.$store.dispatch('fetchCartProducts');
+    }
+  },
+
+  watch: {
+    token(newVal) {
+      if (newVal) {
+        this.$store.dispatch('fetchCartProducts');
+      }
+    }
+  },
+
+  methods: {
+    openModal() {
+      if (this.$route.name !== 'Cart') {
+        this.showModal = true;
+      }
+    },
+
+    logout() {
+      this.$store.dispatch('logout');
+    }
+  }
 };
 </script>
