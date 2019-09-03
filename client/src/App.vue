@@ -7,7 +7,7 @@
         <router-link to="/">Vue Ecommerce</router-link>
       </h1>
       <div class="flex items-center">
-        <button @click="openModal" class="relative hover:shadow sm:mr-1">
+        <button @click="openModal" class="rounded hover:shadow sm:mr-1">
           <img class="w-5 h-5 sm:w-6 sm:h-6 my-1 mx-2" src="./assets/images/cart.svg" alt="cart" />
         </button>
         <button
@@ -74,7 +74,13 @@ export default {
   methods: {
     openModal() {
       if (this.$route.name !== 'Cart') {
-        this.showModal = true;
+        if (this.token && this.allProducts.length !== 0) {
+          this.showModal = true;
+        } else if (!this.token) {
+          this.showModal = true;
+        } else {
+          this.$router.push('/cart');
+        }
       }
     },
 
