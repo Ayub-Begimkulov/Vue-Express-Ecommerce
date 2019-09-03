@@ -8,7 +8,7 @@
       class="block w-36"
       :class="{'sm:w-56': isFullWidth}"
     >
-      <img :src="product.img" alt="product" />
+      <img :src="product.img" :alt="product.title" />
     </router-link>
 
     <div class="flex flex-1 flex-col p-3" :class="{'sm:p-6': isFullWidth}">

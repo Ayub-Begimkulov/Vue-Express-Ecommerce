@@ -68,7 +68,7 @@
           :to="{ name: 'Product', params: {id: product._id, productData: product}}"
           class="block bg-white rounded shadow hover:shadow-md-y"
         >
-          <img :src="product.img" alt="product" />
+          <img :src="product.img" :alt="product.title" />
 
           <div class="p-3 sm:p-6">
             <h3 class="font-bold hover:underline mb-3">{{product.title}}</h3>
