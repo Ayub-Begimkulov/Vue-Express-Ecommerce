@@ -1,5 +1,5 @@
 <template>
-  <div class="md:flex">
+  <div v-if="isDataLoaded" class="md:flex">
     <div
       @click="showFilters = !showFilters"
       class="filters-toggle bg-white rounded-t flex justify-between items-center md:hidden text-lg font-bold p-4 md:p-6 mx-2"
@@ -93,6 +93,7 @@ export default {
         brands: [],
         categories: []
       },
+      isDataLoaded: false,
       showFilters: false
     };
   },
@@ -136,6 +137,7 @@ export default {
   created() {
     axios.get('http://localhost:3000/api/products').then(({ data }) => {
       this.products = data;
+      this.isDataLoaded = true;
     });
   },
 
