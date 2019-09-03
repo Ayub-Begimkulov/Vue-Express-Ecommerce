@@ -95,17 +95,4 @@ router.post('/login', async (req, res) => {
   );
 });
 
-// Remove
-router.get('/', (req, res) => {
-  User.find().then(users => {
-    res.json(users);
-  });
-});
-
-router.delete('/:id', (req, res) => {
-  User.findByIdAndDelete(req.params.id).then(users => {
-    res.json(users);
-  });
-});
-
 module.exports = router;
