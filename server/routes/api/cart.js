@@ -26,7 +26,7 @@ router.post('/', verifyToken, (req, res) => {
     amount: req.body.amount
   })
     .then(doc => {
-      res.json(doc);
+      res.status(200).json(doc);
     })
     .catch(err => {
       res.json(err);
@@ -41,14 +41,14 @@ router.put('/:id', verifyToken, (req, res) => {
     },
     { new: true }
   ).then(doc => {
-    res.json(doc);
+    res.status(200).json(doc);
   });
 });
 
 router.delete('/:id', verifyToken, (req, res) => {
   Cart.findByIdAndDelete(req.params.id)
     .then(doc => {
-      res.json(doc);
+      res.status(200).json(doc);
     })
     .catch(err => {
       res.json(err);

@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const Product = require('../../models/Product');
+const verifyToken = require('../../middlewares/api/verifyToken');
+const verifyAdmin = require('../../middlewares/api/verifyAdmin');
 
 router.get('/', (req, res) => {
   Product.find()
@@ -15,7 +17,7 @@ router.get('/', (req, res) => {
 router.get('/:id', (req, res) => {
   Product.findById(req.params.id)
     .then(doc => {
-      res.json(doc);
+      res.status(200).json(doc);
     })
     .catch(err => {
       res.json(err);
@@ -32,7 +34,7 @@ router.post('/', (req, res) => {
     description: req.body.description
   })
     .then(doc => {
-      res.json(doc);
+      res.status(200).json(doc);
     })
     .catch(err => {
       res.json(err);
@@ -42,7 +44,7 @@ router.post('/', (req, res) => {
 router.delete('/:id', (req, res) => {
   Product.findByIdAndDelete(req.params.id)
     .then(doc => {
-      res.json(doc);
+      res.status(200).json(doc);
     })
     .catch(err => {
       res.json(err);
