@@ -43,7 +43,10 @@
         />
       </label>
 
-      <button class="block w-full bg-indigo-700 text-white font-bold rounded px-4 py-2">Sign up</button>
+      <button class="block w-full bg-indigo-700 text-white font-bold rounded px-4 py-2">
+        <span v-if="isSignup">Signup</span>
+        <span v-else>Login</span>
+      </button>
 
       <div v-if="authErr" class="bg-red-600 text-white text-sm p-3 mt-4">{{authErr}}</div>
     </div>
@@ -90,9 +93,10 @@ export default {
           password: this.password
         });
       }
-
       promise.then(() => {
-        this.$router.push('/');
+        if (!this.authErr) {
+          this.$router.push('/');
+        }
       });
     }
   }
