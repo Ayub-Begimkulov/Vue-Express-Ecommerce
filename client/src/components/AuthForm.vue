@@ -1,6 +1,9 @@
 <template>
   <form @submit.prevent="onSubmit" class="bg-white shadow max-w-lg mx-auto rounded">
-    <h3 class="text-xl text-gray-900 font-bold bg-gray-200 p-4">Sign up</h3>
+    <h3 class="text-xl text-gray-900 font-bold bg-gray-200 p-4">
+      <span v-if="isSignup">Signup</span>
+      <span v-else>Login</span>
+    </h3>
 
     <div class="p-5">
       <div v-if="isSignup" class="flex">
@@ -42,22 +45,20 @@
 
       <button class="block w-full bg-indigo-700 text-white font-bold rounded px-4 py-2">Sign up</button>
 
-      <div v-if="err" class="bg-red-600 text-white text-sm p-3 mt-4">{{err}}</div>
+      <div v-if="authErr" class="bg-red-600 text-white text-sm p-3 mt-4">{{authErr}}</div>
     </div>
   </form>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   name: 'AuthForm',
   props: {
     isSignup: {
       type: Boolean,
       required: true
-    },
-    err: {
-      type: String,
-      required: false
     }
   },
 
@@ -70,25 +71,23 @@ export default {
     };
   },
 
+  computed: mapGetters(['authErr']),
+
   methods: {
     onSubmit() {
-      let credentials;
-
       if (this.isSignup) {
-        credentials = {
+        this.$store.dispatch('signup', {
           firstName: this.firstName,
           lastName: this.lastName,
           email: this.email,
           password: this.password
-        };
+        });
       } else {
-        credentials = {
+        this.$store.dispatch('login', {
           email: this.email,
           password: this.password
-        };
+        });
       }
-
-      this.$emit('submit', credentials);
     }
   }
 };
