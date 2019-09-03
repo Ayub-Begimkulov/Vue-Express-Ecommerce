@@ -6,7 +6,7 @@ const verifyToken = require('../../middlewares/api/verifyToken');
 router.get('/', verifyToken, (req, res) => {
   Cart.find({ userId: req.userId })
     .then(doc => {
-      res.json(doc);
+      res.status(200).json(doc);
     })
     .catch(err => {
       res.json(err);
@@ -18,6 +18,7 @@ router.post('/', verifyToken, (req, res) => {
     userId: req.userId,
     productId: req.body.productId,
     title: req.body.title,
+    img: req.body.img,
     price: req.body.price,
     brand: req.body.brand,
     category: req.body.category,
@@ -32,8 +33,20 @@ router.post('/', verifyToken, (req, res) => {
     });
 });
 
+router.put('/:id', verifyToken, (req, res) => {
+  Cart.findByIdAndUpdate(
+    req.params.id,
+    {
+      amount: req.body.amount
+    },
+    { new: true }
+  ).then(doc => {
+    res.json(doc);
+  });
+});
+
 router.delete('/:id', verifyToken, (req, res) => {
-  Cart.findByIdAndRemove(req.params.id)
+  Cart.findByIdAndDelete(req.params.id)
     .then(doc => {
       res.json(doc);
     })
