@@ -24,7 +24,7 @@ router.get('/:id', (req, res) => {
     });
 });
 
-router.post('/', (req, res) => {
+router.post('/', [verifyToken, verifyAdmin], (req, res) => {
   Product.create({
     title: req.body.title,
     img: req.body.img,
@@ -41,7 +41,7 @@ router.post('/', (req, res) => {
     });
 });
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', [verifyToken, verifyAdmin], (req, res) => {
   Product.findByIdAndDelete(req.params.id)
     .then(doc => {
       res.status(200).json(doc);
