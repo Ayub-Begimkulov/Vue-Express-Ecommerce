@@ -75,19 +75,25 @@ export default {
 
   methods: {
     onSubmit() {
+      let promise;
+
       if (this.isSignup) {
-        this.$store.dispatch('signup', {
+        promise = this.$store.dispatch('signup', {
           firstName: this.firstName,
           lastName: this.lastName,
           email: this.email,
           password: this.password
         });
       } else {
-        this.$store.dispatch('login', {
+        promise = this.$store.dispatch('login', {
           email: this.email,
           password: this.password
         });
       }
+
+      promise.then(() => {
+        this.$router.push('/');
+      });
     }
   }
 };
