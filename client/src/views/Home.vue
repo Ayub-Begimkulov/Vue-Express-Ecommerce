@@ -1,6 +1,24 @@
 <template>
   <div class="md:flex">
-    <aside class="bg-white self-start rounded mx-2 mb-8 md:m-0 md:w-1/4 p-6">
+    <div
+      @click="showFilters = !showFilters"
+      class="filters-toggle bg-white rounded-t flex justify-between items-center md:hidden text-lg font-bold p-4 md:p-6 mx-2"
+      :class="{'rounded-b mb-8': !showFilters}"
+    >
+      Filters
+      <svg
+        class="fill-current h-6 w-6"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 20 20"
+      >
+        <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+      </svg>
+    </div>
+
+    <aside
+      v-show="showFilters"
+      class="filters bg-white self-start rounded-b md:rounded mx-2 mb-8 md:m-0 md:w-1/4 px-4 pb-4 md:p-6"
+    >
       <div class="flex md:block">
         <div class="w-1/2 md:w-full">
           <h3 class="text-lg mb-4">Categories</h3>
@@ -52,7 +70,7 @@
         >
           <img :src="product.img" alt="product" />
 
-          <div class="p-4 sm:p-6">
+          <div class="p-3 sm:p-6">
             <h3 class="font-bold hover:underline mb-3">{{product.title}}</h3>
             <div class="font-bold mb-3 sm:mb-0">${{product.price}}</div>
           </div>
@@ -74,7 +92,8 @@ export default {
       filtersApplied: {
         brands: [],
         categories: []
-      }
+      },
+      showFilters: false
     };
   },
 
@@ -135,3 +154,15 @@ export default {
   }
 };
 </script>
+
+<style>
+@media (min-width: 768px) {
+  .filters {
+    display: block !important;
+  }
+
+  .filters-toggle {
+    display: none;
+  }
+}
+</style>
