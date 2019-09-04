@@ -8,6 +8,14 @@ import Signup from './views/Signup';
 
 Vue.use(Router);
 
+const authRoutesGuard = (to, from, next) => {
+  if (!localStorage.hasOwnProperty('token')) {
+    next();
+  } else {
+    next(from.path);
+  }
+};
+
 export default new Router({
   mode: 'history',
   base: process.env.BASE_URL,
@@ -21,7 +29,14 @@ export default new Router({
     {
       path: '/cart',
       name: 'Cart',
-      component: Cart
+      component: Cart,
+      beforeEnter: (to, from, next) => {
+        if (localStorage.hasOwnProperty('token')) {
+          next();
+        } else {
+          next(from.path);
+        }
+      }
     },
 
     {
@@ -34,13 +49,15 @@ export default new Router({
     {
       path: '/login',
       name: 'Login',
-      component: Login
+      component: Login,
+      beforeEnter: authRoutesGuard
     },
 
     {
       path: '/signup',
       name: 'Signup',
-      component: Signup
+      component: Signup,
+      beforeEnter: authRoutesGuard
     }
   ]
 });
