@@ -135,7 +135,7 @@ export default {
   },
 
   created() {
-    axios.get('http://localhost:3000/api/products').then(({ data }) => {
+    axios.get('/api/products').then(({ data }) => {
       this.products = data;
       this.isDataLoaded = true;
     });

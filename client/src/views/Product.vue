@@ -74,11 +74,9 @@ export default {
 
   created() {
     if (!this.product) {
-      axios
-        .get(`http://localhost:3000/api/products/${this.$route.params.id}`)
-        .then(({ data }) => {
-          this.product = data;
-        });
+      axios.get(`/api/products/${this.$route.params.id}`).then(({ data }) => {
+        this.product = data;
+      });
     }
   },
 

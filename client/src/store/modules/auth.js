@@ -14,7 +14,7 @@ const actions = {
   login({ commit }, { email, password }) {
     axios
       .post(
-        'http://localhost:3000/api/auth/login',
+        '/api/auth/login',
         {
           email,
           password
@@ -36,7 +36,7 @@ const actions = {
   signup({ commit }, { firstName, lastName, email, password }) {
     axios
       .post(
-        'http://localhost:3000/api/auth/signup',
+        '/api/auth/signup',
         {
           firstName,
           lastName,
