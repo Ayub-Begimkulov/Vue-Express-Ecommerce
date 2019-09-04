@@ -13,7 +13,7 @@ const getters = {
 };
 
 const actions = {
-  async login({ commit }, { email, password }) {
+  login: async ({ commit }, { email, password }) => {
     const [err, res] = await to(
       axios.post(
         '/api/auth/login',
@@ -35,7 +35,7 @@ const actions = {
     }
   },
 
-  async signup({ commit }, { firstName, lastName, email, password }) {
+  signup: async ({ commit }, { firstName, lastName, email, password }) => {
     const [err, res] = await to(
       axios.post(
         '/api/auth/signup',
@@ -59,8 +59,12 @@ const actions = {
     }
   },
 
-  logout({ commit }) {
+  logout: ({ commit }) => {
     commit('removeToken');
+  },
+
+  removeAuthErr: ({ commit }) => {
+    commit('setErr', null);
   }
 };
 const mutations = {
