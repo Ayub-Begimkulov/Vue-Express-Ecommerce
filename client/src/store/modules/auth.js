@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+const to = promise => promise.then(data => [null, data]).catch(err => [err]);
+
 const state = {
   token: localStorage.getItem('token'),
   authErr: null
@@ -11,9 +13,9 @@ const getters = {
 };
 
 const actions = {
-  login({ commit }, { email, password }) {
-    axios
-      .post(
+  async login({ commit }, { email, password }) {
+    const [err, res] = await to(
+      axios.post(
         '/api/auth/login',
         {
           email,
@@ -25,17 +27,17 @@ const actions = {
           }
         }
       )
-      .then(({ data }) => {
-        commit('setToken', data.token);
-      })
-      .catch(authErr => {
-        commit('setErr', authErr.response.data.message);
-      });
+    );
+    if (err) {
+      commit('setErr', err.response.data.message);
+    } else {
+      commit('setToken', res.data.token);
+    }
   },
 
-  signup({ commit }, { firstName, lastName, email, password }) {
-    axios
-      .post(
+  async signup({ commit }, { firstName, lastName, email, password }) {
+    const [err, res] = await to(
+      axios.post(
         '/api/auth/signup',
         {
           firstName,
@@ -49,12 +51,12 @@ const actions = {
           }
         }
       )
-      .then(({ data }) => {
-        commit('setToken', data.token);
-      })
-      .catch(authErr => {
-        commit('setErr', authErr.response.data.message);
-      });
+    );
+    if (err) {
+      commit('setErr', err.response.data.message);
+    } else {
+      commit('setToken', res.data.token);
+    }
   },
 
   logout({ commit }) {
