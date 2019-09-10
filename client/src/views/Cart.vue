@@ -37,7 +37,7 @@ export default {
     ...mapGetters(['allProducts']),
 
     total() {
-      return this.allProducts.reduce((a, b) => a + b.price, 0);
+      return this.allProducts.reduce((a, b) => a + b.price * b.amount, 0);
     }
   }
 };
