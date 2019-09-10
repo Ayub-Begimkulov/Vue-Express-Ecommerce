@@ -26,6 +26,12 @@ export default {
     return {
       value: this.defaultValue
     };
+  },
+
+  watch: {
+    defaultValue(newVal) {
+      this.value = newVal;
+    }
   }
 };
 </script>

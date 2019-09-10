@@ -56,13 +56,11 @@ export default {
     NumberSelect
   },
 
-  data() {
-    return {
-      amount: this.product.amount
-    };
-  },
-
   computed: {
+    amount() {
+      return this.product.amount;
+    },
+
     baseText() {
       return {
         'sm:text-base': this.isFullWidth
@@ -76,7 +74,6 @@ export default {
     },
 
     updateAmount(amount) {
-      this.amount = amount;
       this.$store.dispatch('updateAmount', { id: this.product._id, amount });
     }
   }
