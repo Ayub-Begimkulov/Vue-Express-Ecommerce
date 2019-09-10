@@ -50,7 +50,7 @@ export default {
 
     firstTwoProducts() {
       if (this.products.length > 2) {
-        return [this.products[0], this.products[0]];
+        return [this.products[0], this.products[1]];
       }
 
       return this.products;
