@@ -58,7 +58,7 @@
       </select>
     </aside>
 
-    <div class="md:w-3/4 flex flex-wrap">
+    <main class="md:w-3/4 flex flex-wrap">
       <div
         v-for="product in filteredProducts"
         :key="product._id"
@@ -76,7 +76,7 @@
           </div>
         </router-link>
       </div>
-    </div>
+    </main>
   </div>
 </template>
 
